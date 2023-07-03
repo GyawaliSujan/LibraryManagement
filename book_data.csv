@@ -1,1 +1,6 @@
-We can Live,1000,02/07/23,1/1/1,07/12/23
+Book Id,Book Name,Title,Author,Quantity,Edition,Publication Year
+Book-1,Emma,Emma,Jane Austen,3,1,1815
+Book-2,Dune,Dune,Frank Herbert,3,1,1965
+Book-3,It,It,Stephen King,2,1,1986
+Book-4,Jaws,Jaws,Peter Benchley,3,Book-4,1974
+Book-6,Jane Kat,Jane Kat,Harry Roll,4,3,2023

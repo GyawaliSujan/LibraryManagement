@@ -25,12 +25,12 @@ class Transaction:
                 if int(row[4]) > 0:
                     row[4] = str(int(row[4]) - 1)
                     break
-
+            
         with open('book_data.csv', 'w', newline='') as file:
             writer = csv.writer(file)
             writer.writerows(rows)
-        
-        print("Quantity updated successfully!")
+            print("Quantity updated successfully!")
+       
 
 
     def update_return_date():

@@ -49,9 +49,12 @@ def selection_calls():
             else:
                 print("Sorry we dont have this book")
         if not member:
+            print('------------------------------')
+            print("Member Not Found")
+            print('-------------------------------')
             member_request = input("Do you want to get membership? (Yes/No) : ").lower()
             if member_request == 'yes':
-                borrower.add_borrower
+                borrower.add_borrower()
             else:
                 print("Thank you for your interest")
 
@@ -127,6 +130,7 @@ def selection_calls():
         borrower = Borrower(None, None, None, None, None, None, None)
         member = borrower.search_borrower_by_membership_id(membership_id=membership_id)
         #Display all the books borrowed by this membership_id
+        
         if member:
             with open('transaction_data.csv', 'r') as file:
                 found_books = []
@@ -138,7 +142,7 @@ def selection_calls():
                     print('These are the borrowed books found in our database for you:')
                     for book in found_books:
                         print(','.join(book))
-                #Ask Borrower which book they want to return
+                    #Ask Borrower which book they want to return
                     is_extend = True
                     while is_extend:
                         book_to_extend = input("Please enter a book title for book you want to extend: ")
