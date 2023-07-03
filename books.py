@@ -15,9 +15,13 @@ class Book():
         if not found:
             with open("book_data.csv", "a+") as file:
                 file.write(book_data)
+            print('--------------------------')
             print("Book added successfully!")
+            print('---------------------------')
         else:
+            print('--------------------------')
             print("Book already exists!!!")
+            print('--------------------------')
     def search_book_by_title(self, title):
         found = False
         with open("book_data.csv", "r") as file:

@@ -15,7 +15,7 @@ class Transaction:
             writer.writerow(transaction_data)
             print("You have successfully Borrowed a Book")
             #After Borrowed Successfully, Decrease Qantity on book data
-            # Decrease quantity in book_data.csv
+            # Decrease quantity in book_data.csv by 1
         with open('book_data.csv', 'r') as file:
             reader = csv.reader(file)
             rows = list(reader)

@@ -15,9 +15,13 @@ class Borrower():
         if not found:
             with open("borrower_data.csv", "a+") as file:
                 file.write(book_data)
+            print('-------------------------------')
             print("Borrower added successfully!")
+            print('-------------------------------')
         else:
+            print('-------------------------------')
             print("Borrower already exists!!!")
+            print('-------------------------------')
 
     def search_borrower_by_membership_id(self, membership_id):
         found = False
@@ -43,8 +47,9 @@ class Borrower():
                         writer.writerow(updated_data)
                     else:
                         writer.writerow(row)
-
+        print('-------------------------------')
         print("Borrower updated successfully!")
+        print('-------------------------------')
     
 
 

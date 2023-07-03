@@ -42,8 +42,8 @@ def selection_calls():
             if found:
                 print('***Please enter the following details ***')
                 borrow_date = datetime.now().strftime("%d/%m/%y")
-                expected_return_date = input("Enter return date in dd/mm/yy format: ")
-                actual_return_date = input("Enter actual return date in dd/mm/yy format: ")
+                expected_return_date = input("Enter return date in mm/dd/yy format: ")
+                actual_return_date = input("Enter actual return date in mm/dd/yy format: ")
                 burrow_book = Transaction(book=book_title, member_id=membership_id, borrow_date=borrow_date, expected_return_date=expected_return_date,actual_return_date=actual_return_date)
                 burrow_book.record_transaction()
             else:
@@ -75,23 +75,54 @@ def selection_calls():
                 #Ask Borrower which book they want to return
                     is_return = True
                     while is_return:
-                        book_to_return = input("Please enter a book title you want to return")
+                        book_to_return = input("Please enter a book title you want to return: ")
                         for book in found_books:
                             if book[0] == book_to_return:
                                 #delete that row from transaction database and increase quantity on book data
-                            #ask borrower if they want to return more book
-                                another_book_return = input("Do you want to return any other books(Yes/No) : ").lower()
-                                if another_book_return == "no":
-                                    is_return = False
+                                rows = []
+                                with open('transaction_data.csv', 'r') as file:
+                                    reader = csv.reader(file)
+                                    rows = list(reader)
+                                # Remove the desired row from transaction data
+                                index_value = 0
+                                for i, record in enumerate(rows):
+                                    if record[0] == book_to_return:
+                                        index_value += i
+                                        break
+                                del rows[index_value]
+                                # Write the modified data back to the CSV file
+                                with open('transaction_data.csv', 'w', newline='') as file:
+                                    writer = csv.writer(file)
+                                    writer.writerows(rows)
+                                    
+                                #add quantity to the book data after return
+                                with open('book_data.csv', 'r') as file:
+                                    reader = csv.reader(file)
+                                    rows = list(reader)
+                                    for row in rows:
+                                        if row[2] == book_to_return:
+                                            if int(row[4]) > 0:
+                                                row[4] = str(int(row[4]) + 1)
+                                                break
+
+                                with open('book_data.csv', 'w', newline='') as file:
+                                    writer = csv.writer(file)
+                                    writer.writerows(rows)
+                                print('------------------------------')
+                                print("Book returned successfully!")
+                                print('-------------------------------')
+                                                        
+                        #ask borrower if they want to return more book
+                        another_book_return = input("Do you want to return any other books(Yes/No) : ").lower()
+                        if another_book_return == "no":
+                            is_return = False
                 else:
                     print('No borrowed books found for your membership ID.')
-                        # for book in found_books:
-                        #     print(book[0])
         else:
             print("Sorry you are not member of this library")
 
     elif selection == '3': #extend the date
-        print('*** You can return your book here ***\n\n')
+        print('*** You can return your book here ***\n')
         membership_id = input("Please enter your membership ID: ")
         borrower = Borrower(None, None, None, None, None, None, None)
         member = borrower.search_borrower_by_membership_id(membership_id=membership_id)
@@ -120,8 +151,6 @@ def selection_calls():
                             is_extend= False
                 else:
                     print('No borrowed books found for your membership ID.')
-                        # for book in found_books:
-                        #     print(book[0])
 
     elif selection == '4':
         user_name = input("Enter user_name: ")
