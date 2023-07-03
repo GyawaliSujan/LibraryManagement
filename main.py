@@ -122,7 +122,7 @@ def selection_calls():
             print("Sorry you are not member of this library")
 
     elif selection == '3': #extend the date
-        print('*** You can return your book here ***\n')
+        print('*** You can extend your book here ***\n')
         membership_id = input("Please enter your membership ID: ")
         borrower = Borrower(None, None, None, None, None, None, None)
         member = borrower.search_borrower_by_membership_id(membership_id=membership_id)
@@ -141,11 +141,19 @@ def selection_calls():
                 #Ask Borrower which book they want to return
                     is_extend = True
                     while is_extend:
-                        book_to_extend = input("Please enter a book title you want to return")
+                        book_to_extend = input("Please enter a book title for book you want to extend: ")
                         for book in found_books:
                             if book[0] == book_to_extend:
-                                #extend the date in transaction_data.csv
-                                print("hello")
+                                new_date = input("Please enter a new return date in mm//dd/yy format: ")
+                                book[3] = new_date
+                                print(found_books)
+                                with open('transaction_data.csv', 'w', newline='') as file:
+                                    writer = csv.writer(file)
+                                    writer.writerows(found_books)
+                                print('------------------------------')
+                                print("Return Date Updated successfully!")
+                                print('-------------------------------')
+                               
                         another_book_extend = input("Do you want to extend dates for any other books(Yes/No) : ").lower()
                         if another_book_extend == "no":
                             is_extend= False
