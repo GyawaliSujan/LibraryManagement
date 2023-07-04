@@ -33,14 +33,6 @@ class Transaction:
        
 
 
-    def update_return_date():
-        pass
-    
-    def get_borrowed_books():
-        pass
-
-    def get_overdue_books():
-        pass
 
 
 
